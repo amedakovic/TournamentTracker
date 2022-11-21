@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using TrackerLibrary;
+using TrackerLibrary.DataAccess;
+using TrackerLibrary.Models;
 
 namespace ProjectTrackerUI
 {
@@ -28,10 +30,8 @@ namespace ProjectTrackerUI
                     prizeAmountValue.Text, 
                     prizePercentageValue.Text);
 
-                foreach(var db in GlobalConfig.Connections)
-                {
-                    db.CreatePrize(prize);
-                }
+                GlobalConfig.Connection.CreatePrize(prize);
+
                 placeNameValue.Text = "";
                 placeNumberValue.Text = "";
                 prizeAmountValue.Text = "0";
