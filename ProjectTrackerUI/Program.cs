@@ -14,7 +14,7 @@ namespace ProjectTrackerUI
             //Initilize database connections
             TrackerLibrary.GlobalConfig.InitilizeConnections(TrackerLibrary.DataBaseType.TextFile);
             //Application.Run(new TournamentDashboardForm());
-            Application.Run(new CreatePrizeForm());
+            Application.Run(new CreateTeamForm());
         }
     }
 }
