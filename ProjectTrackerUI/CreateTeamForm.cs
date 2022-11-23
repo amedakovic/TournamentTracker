@@ -14,9 +14,14 @@ namespace ProjectTrackerUI
 {
     public partial class CreateTeamForm : Form
     {
+        private BindingList<PersonModel> availableTeamMembers = GlobalConfig.Connection.GetPerson_All();
+        private BindingList<PersonModel> selectedTeamMembers = new BindingList<PersonModel>();
+
         public CreateTeamForm()
         {
             InitializeComponent();
+            
+            WireUpLists();
         }
 
         private void cellphoneLabel_Click(object sender, EventArgs e)
@@ -34,7 +39,8 @@ namespace ProjectTrackerUI
                 p.EmailAddress = emailValue.Text;
                 p.CellphoneNumber = cellphoneValue.Text;
 
-                GlobalConfig.Connection.CreatePerson(p);
+                p = GlobalConfig.Connection.CreatePerson(p);
+                selectedTeamMembers.Add(p);
 
                 firstNameValue.Text = "";
                 lastNameValue.Text = "";
@@ -46,6 +52,8 @@ namespace ProjectTrackerUI
             {
                 MessageBox.Show("You need to fill all fields");
             }
+
+
 
         }
 
@@ -69,6 +77,48 @@ namespace ProjectTrackerUI
             }
 
             return true;
+        }
+
+        private void WireUpLists()
+        {
+            selectTeamMemberDropDown.DataSource = availableTeamMembers;
+            selectTeamMemberDropDown.DisplayMember = "FullName";
+
+            teamMembersListBox.DataSource = selectedTeamMembers;
+            teamMembersListBox.DisplayMember = "FullName";
+        }
+
+        private void addTeamMemberButton_Click(object sender, EventArgs e)
+        {
+            PersonModel p = (PersonModel)selectTeamMemberDropDown.SelectedItem;
+
+            if (p != null)
+            {
+                availableTeamMembers.Remove(p);
+                selectedTeamMembers.Add(p);
+            }
+        }
+
+        private void removeSelectedMemberButton_Click(object sender, EventArgs e)
+        {
+            PersonModel p = (PersonModel)teamMembersListBox.SelectedItem;
+
+            if (p != null)
+            {
+                availableTeamMembers.Add(p);
+                selectedTeamMembers.Remove(p);
+            }
+        }
+
+        private void createTeamButton_Click(object sender, EventArgs e)
+        {
+            TeamModel t = new TeamModel();
+            t.TeamName = teamNameValue.Text;
+            t.TeamMembers = selectedTeamMembers.ToList();
+
+            t = GlobalConfig.Connection.CreateTeam(t);
+            
+            //TODO - if we arent closing this form after creating close it
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TrackerLibrary.Models;
 using TrackerLibrary.DataAccess.TextHelpers;
+using System.ComponentModel;
 
 namespace TrackerLibrary.DataAccess
 {
@@ -54,5 +55,15 @@ namespace TrackerLibrary.DataAccess
             return model;
         }
 
+        public BindingList<PersonModel> GetPerson_All()
+        {
+            List<PersonModel> p = PeopleFile.FullFilePath().LoadFile().ConvertToPersonModels();
+            return new BindingList<PersonModel>(p);
+        }
+
+        public TeamModel CreateTeam(TeamModel model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
