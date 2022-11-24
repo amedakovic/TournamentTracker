@@ -17,6 +17,16 @@ namespace ProjectTrackerUI
         private BindingList<PersonModel> availableTeamMembers = GlobalConfig.Connection.GetPerson_All();
         private BindingList<PersonModel> selectedTeamMembers = new BindingList<PersonModel>();
 
+        private ITeamRequestor callingForm;
+
+        public CreateTeamForm(ITeamRequestor caller)
+        {
+            InitializeComponent();
+
+            WireUpLists();
+            callingForm = caller;
+        }
+
         public CreateTeamForm()
         {
             InitializeComponent();
@@ -116,7 +126,10 @@ namespace ProjectTrackerUI
             t.TeamName = teamNameValue.Text;
             t.TeamMembers = selectedTeamMembers.ToList();
 
-            t = GlobalConfig.Connection.CreateTeam(t);
+            GlobalConfig.Connection.CreateTeam(t);
+
+            callingForm.TeamComplete(t);
+            this.Close();
             
             //TODO - if we arent closing this form after creating close it
         }

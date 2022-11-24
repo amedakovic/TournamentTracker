@@ -15,6 +15,14 @@ namespace ProjectTrackerUI
 {
     public partial class CreatePrizeForm : Form
     {
+        IPrizeRequestor callingForm;
+
+        public CreatePrizeForm(IPrizeRequestor caller)
+        {
+            callingForm = caller;
+            InitializeComponent();
+        }
+
         public CreatePrizeForm()
         {
             InitializeComponent();
@@ -30,7 +38,12 @@ namespace ProjectTrackerUI
                     prizeAmountValue.Text, 
                     prizePercentageValue.Text);
 
-                GlobalConfig.Connection.CreatePrize(prize);
+                prize = GlobalConfig.Connection.CreatePrize(prize);
+
+
+                callingForm.PrizeComplete(prize);
+
+                this.Close();
 
                 placeNameValue.Text = "";
                 placeNumberValue.Text = "";
