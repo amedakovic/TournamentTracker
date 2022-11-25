@@ -16,6 +16,7 @@ namespace TrackerLibrary.DataAccess
         private const string PrizesFile = "PrizesModels.csv";
         private const string PeopleFile = "PeopleModels.csv";
         private const string TeamFile = "TeamModels.csv";
+        private const string TournamentFile = "TournamentModels.csv";
         public PrizeModel CreatePrize(PrizeModel model)
         {
             List<PrizeModel> prizes =  PrizesFile.FullFilePath().LoadFile().ConvertToPrizeModels();
@@ -80,10 +81,17 @@ namespace TrackerLibrary.DataAccess
 
             return model;
         }
+        public TournamentModel CreateTournament(TournamentModel model)
+        {
+            List<TournamentModel> tournaments = TournamentFile.FullFilePath().LoadFile().ConvertToTournamentModels(TeamFile, PeopleFile, PrizesFile);
+        }
 
         public BindingList<TeamModel> GetTeam_All()
         {
-            throw new NotImplementedException();
+            List<TeamModel> t = TeamFile.FullFilePath().LoadFile().ConvertToTeamModels(PeopleFile);
+            return new BindingList<TeamModel>(t);
         }
+
+        
     }
 }

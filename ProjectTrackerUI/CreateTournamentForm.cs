@@ -32,7 +32,13 @@ namespace ProjectTrackerUI
 
         private void button1_Click(object sender, EventArgs e)
         {
+            TeamModel t = (TeamModel)tournametTeamsListBox.SelectedItem;
 
+            if(t != null)
+            {
+                selectedTeams.Remove(t);
+                availableTeams.Add(t);
+            }
         }
 
 
@@ -79,6 +85,42 @@ namespace ProjectTrackerUI
         {
             CreateTeamForm fmr = new CreateTeamForm(this);
             fmr.Show();
+        }
+
+        private void removeSelectedPrizeButton_Click(object sender, EventArgs e)
+        {
+            PrizeModel p = (PrizeModel)prizesListBox.SelectedItem;
+
+            if(p != null)
+            {
+                selectedPrizes.Remove(p);
+            }
+        }
+
+        private void createTournamentButton_Click(object sender, EventArgs e)
+        {
+            decimal fee = 0;
+            bool feeAcceptable = decimal.TryParse(enteryFeeValue.Text, out fee);
+            if(!feeAcceptable)
+            {
+                MessageBox.Show("You need to enter a valide entry fee", "Invalid fee", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            TournamentModel tm = new TournamentModel();
+            tm.TournamentName = tournamentNameValue.Text;
+            tm.EntryFee = fee;
+            foreach (PrizeModel prize in selectedPrizes)
+            {
+                tm.Prizes.Add(prize);
+            }
+            foreach (TeamModel team in selectedTeams)
+            {
+                tm.EnteredTeams.Add(team);
+            }
+
+            GlobalConfig.Connection.CreateTournament(tm);
         }
     }
 }
