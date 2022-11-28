@@ -106,7 +106,7 @@ namespace TrackerLibrary.DataAccess
             return new BindingList<TeamModel>(output);
         }
 
-        public TournamentModel CreateTournament(TournamentModel model)
+        public void CreateTournament(TournamentModel model)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
             {
@@ -116,7 +116,6 @@ namespace TrackerLibrary.DataAccess
 
                 SaveTournamentEntries(model, connection);
 
-                return model;
             }
         }
 

@@ -120,6 +120,8 @@ namespace ProjectTrackerUI
                 tm.EnteredTeams.Add(team);
             }
 
+            TournamentLogic.CreateRounds(tm);
+
             GlobalConfig.Connection.CreateTournament(tm);
         }
     }
