@@ -85,7 +85,7 @@ namespace TrackerLibrary.DataAccess
         }
         public void CreateTournament(TournamentModel model)
         {
-            model.SaveRoundsToFile(MatchupFile, MatchupEntriesFile);
+            
 
             List<TournamentModel> tournaments = TournamentFile.FullFilePath().LoadFile().ConvertToTournamentModels(TeamFile, PeopleFile, PrizesFile);
 
@@ -98,7 +98,7 @@ namespace TrackerLibrary.DataAccess
 
             model.Id = currentId;
 
-            
+            model.SaveRoundsToFile(MatchupFile, MatchupEntriesFile);
 
             tournaments.Add(model);
 
@@ -114,6 +114,12 @@ namespace TrackerLibrary.DataAccess
             return new BindingList<TeamModel>(t);
         }
 
-        
+      
+
+        BindingList<TournamentModel> IDataConnection.GetTournament_All()
+        {
+            var output = TournamentFile.FullFilePath().LoadFile().ConvertToTournamentModels(TeamFile, PeopleFile, PrizesFile);
+            return new BindingList<TournamentModel>(output);
+        }
     }
 }
