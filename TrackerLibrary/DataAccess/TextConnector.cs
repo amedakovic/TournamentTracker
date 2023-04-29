@@ -121,5 +121,10 @@ namespace TrackerLibrary.DataAccess
             var output = TournamentFile.FullFilePath().LoadFile().ConvertToTournamentModels(TeamFile, PeopleFile, PrizesFile);
             return new BindingList<TournamentModel>(output);
         }
+
+        public void UpdataMatchup(MatchupModel model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
