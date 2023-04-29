@@ -13,5 +13,32 @@ namespace TrackerLibrary.Models
         public TeamModel Winner { get; set; }
         public int MatchupRound { get; set; }
         public int WinnerId { get; set; }
+        public string DisplayName 
+        { 
+            get 
+            {
+                string output = "";
+                foreach (MatchupEntryModel matchupEntry in Entries)
+                {
+                    if (matchupEntry.TeamCompeting != null)
+                    {
+                        if (output.Length == 0)
+                        {
+                            output = matchupEntry.TeamCompeting.TeamName;
+                        }
+                        else
+                        {
+                            output += $" vs {matchupEntry.TeamCompeting.TeamName}";
+                        } 
+                    }
+                    else
+                    {
+                        output = "Matchup not yet determined";
+                        break;
+                    }
+                }
+                return output;
+            } 
+        }
     }
 }
