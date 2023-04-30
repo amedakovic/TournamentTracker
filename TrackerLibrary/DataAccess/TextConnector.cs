@@ -11,7 +11,6 @@ namespace TrackerLibrary.DataAccess
 {
     public class TextConnector : IDataConnection
     {
-        //TODO - Implement the CreatePrize method
 
         private const string PrizesFile = "PrizesModels.csv";
         private const string PeopleFile = "PeopleModels.csv";
@@ -124,7 +123,7 @@ namespace TrackerLibrary.DataAccess
 
         public void UpdataMatchup(MatchupModel model)
         {
-            throw new NotImplementedException();
+            model.UpdateMatchupToFile();
         }
     }
 }
