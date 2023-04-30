@@ -273,7 +273,7 @@ namespace TrackerLibrary.DataAccess
             return new BindingList<TournamentModel>(output);
         }
 
-        public void UpdataMatchup(MatchupModel model)
+        public void UpdateMatchup(MatchupModel model)
         {
             using(IDbConnection connection = new System.Data.SqlClient.SqlConnection(GlobalConfig.CnnString(db)))
             {
