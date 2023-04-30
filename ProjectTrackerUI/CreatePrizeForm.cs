@@ -38,7 +38,7 @@ namespace ProjectTrackerUI
                     prizeAmountValue.Text, 
                     prizePercentageValue.Text);
 
-                prize = GlobalConfig.Connection.CreatePrize(prize);
+                GlobalConfig.Connection.CreatePrize(prize);
 
 
                 callingForm.PrizeComplete(prize);

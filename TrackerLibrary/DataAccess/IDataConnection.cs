@@ -10,10 +10,10 @@ namespace TrackerLibrary.DataAccess
 {
     public interface IDataConnection
     {
-        PrizeModel CreatePrize(PrizeModel model);
-        PersonModel CreatePerson(PersonModel model);
+        void CreatePrize(PrizeModel model);
+        void CreatePerson(PersonModel model);
         BindingList<PersonModel> GetPerson_All();
-        TeamModel CreateTeam(TeamModel model);
+        void CreateTeam(TeamModel model);
         BindingList<TeamModel> GetTeam_All();
         void CreateTournament(TournamentModel model);
         BindingList<TournamentModel> GetTournament_All();
